@@ -1,9 +1,12 @@
-import { useState } from 'react'
-
+import React from 'react';
+import Navbar from './Component/Navbar';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
-    <h1>Tahura Tatti</h1>
-  )
+    <BrowserRouter>
+      <Navbar />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

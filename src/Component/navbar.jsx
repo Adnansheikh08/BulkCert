@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import logo from './src/logo.png';
 
-function navbar() {
+function Navbar() {
   return (
     <div>
-      
+      <img src="logo.png" alt="" />
     </div>
   )
 }
 
-export default navbar
+export default Navbar;
