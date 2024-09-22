@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './Component/navbar';
+import DropZone from './Component/DropZone'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
+        <Route path="/" element={<DropZone />} />
       </Routes>
     </BrowserRouter>
   );
