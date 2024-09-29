@@ -1,12 +1,23 @@
 // CertificateUpload.js
 import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-
+import { Navigate } from 'react-router-dom';
+import { Toaster, toast } from 'sonner';
 const CertificateUpload = () => {
   const [file, setFile] = useState(null); // To store the uploaded file
   const [error, setError] = useState(''); // To store error message
   const [preview, setPreview] = useState(null);
-
+  const handleDelete = () => {
+    const userConfirmed = window.confirm("Are you sure you want to delete this item?");
+    if (userConfirmed) {
+      // Proceed with the action
+      setFile(null);
+      toast.success("Removed")
+    } else {
+      // User canceled the action
+      console.log("Action canceled");
+    }
+  };
   // Dropzone config
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -16,7 +27,7 @@ const CertificateUpload = () => {
     onDrop: (acceptedFiles, fileRejections) => {
       // If files are rejected
       if (fileRejections.length > 0) {
-        setError('Please upload a valid PNG file');
+        toast.error("Invalid File")
         setFile(null);
         return;
       }
@@ -78,8 +89,10 @@ const CertificateUpload = () => {
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <div className=''>
-        <button className='border p-1 px-3 m-2'>Submit</button>
-        <button  className='border p-1 px-3 m-2'>Re-upload</button>
+        <button onClick={()=>{
+          toast.success("Happy Happy Happy")
+        }} className='border p-1 px-3 m-2 btn btn-success '>Submit</button>
+        <button onClick={()=>handleDelete()}  className=' btn btn-danger border p-1 px-3 m-2'>Re-upload</button>
       </div>
     </div>
   );
