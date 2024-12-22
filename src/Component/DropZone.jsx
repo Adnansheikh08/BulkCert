@@ -4,49 +4,41 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'sonner';
 
 const CertificateUpload = () => {
-  const [file, setFile] = useState(null); // Store uploaded file
-  const [preview, setPreview] = useState(null); // Store file preview URL
-  const navigate = useNavigate(); // Navigation hook
-  
-  // Dropzone configuration
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: { 'image/png': ['.png'] }, // Accept PNG files only
-    maxFiles: 1, // Allow single file
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const navigate = useNavigate();
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: { 'image/png': ['.png'] },
+    maxFiles: 1,
     onDrop: (acceptedFiles, fileRejections) => {
       if (fileRejections.length > 0) {
         toast.error('Invalid File. Please upload a PNG.');
         return;
       }
-
       const uploadedFile = acceptedFiles[0];
       setFile(uploadedFile);
-      setPreview(URL.createObjectURL(uploadedFile)); // Generate preview URL
+      setPreview(URL.createObjectURL(uploadedFile));
     },
   });
+
   const handleDelete = () => {
-    const userConfirmed = window.confirm("Are you sure you want to delete this item?");
-    if (userConfirmed) {
-      // Proceed with the action
-      setFile(null);
-      setPreview(null);
-      toast.success("Removed")
-    } else {
-      // User canceled the action
-      console.log("Action canceled");
-    }
+    setFile(null);
+    setPreview(null);
+    toast.success('File removed successfully.');
   };
-  // Navigate to InputSelection with preview
+
   const handleNext = () => {
     if (!file) {
       toast.error('Please upload a file to proceed.');
       return;
     }
-    navigate('/input', { state: { templateImage: preview } }); // Pass data via `state`
+    navigate('/input', { state: { templateImage: preview } });
   };
 
   useEffect(() => {
     return () => {
-      if (preview) URL.revokeObjectURL(preview); // Cleanup memory when component unmounts
+      if (preview) URL.revokeObjectURL(preview);
     };
   }, [preview]);
 
@@ -55,7 +47,7 @@ const CertificateUpload = () => {
       <p className="font-bold text-2xl text-blue-500 mb-3">Upload Your Certificate Template</p>
       <div
         {...getRootProps({
-          className: 'dropzone',
+          className: `dropzone ${isDragActive ? 'bg-blue-100' : ''}`,
         })}
         style={{
           border: '2px dashed #ccc',
@@ -70,24 +62,25 @@ const CertificateUpload = () => {
           <img
             src={preview}
             alt="Uploaded Template Preview"
-            style={{ maxWidth: '100%', height: 'auto', marginTop: '20px', border: '1px solid #ccc' }}
+            className="rounded shadow-md mt-3"
+            style={{ maxWidth: '100%' }}
           />
         ) : (
           <p>Drag & drop a PNG file here, or click to select one.</p>
         )}
       </div>
-      <div className="mt-4">
-  {preview && (
-    <>
-      <button onClick={handleNext} className="btn btn-success px-3 py-2">
-        Next: Input Names
-      </button>
-      <button onClick={() => handleDelete()} className="btn btn-danger px-4 py-2 ml-2">
-        Re-upload
-      </button>
-    </>
-  )}
-</div>
+      <div className="mt-4 flex space-x-3">
+        {preview && (
+          <>
+            <button onClick={handleNext} className="btn btn-success px-3 py-2">
+              Next: Input Names
+            </button>
+            <button onClick={handleDelete} className="btn btn-danger px-4 py-2">
+              Remove
+            </button>
+          </>
+        )}
+      </div>
       <Toaster />
     </div>
   );

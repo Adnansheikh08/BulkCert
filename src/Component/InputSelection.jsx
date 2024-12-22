@@ -17,12 +17,13 @@ const InputSelection = () => {
   return (
     <div className="container flex flex-col items-center justify-center p-4">
       {templateImage && (
-        <div className="mb-4 text-center">
-          <h2 className="font-bold text-xl">Uploaded Template</h2>
+        <div className="mb-4 text-center flex flex-col items-center justify-center">
+          <h2 className="font-bold text-2xl mb-2 ">Uploaded Template</h2>
           <img
             src={templateImage}
             alt="Certificate Template"
-            style={{ maxWidth: '100%', border: '1px solid #ccc' }}
+            style={{ maxWidth: '90%', border: '1px solid #ccc' }}
+            
           />
         </div>
       )}
