@@ -7,19 +7,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from 'sonner';
 
 function App() {
-  const Home = () => (
-    <>
-      <DropZone />
-      <InputSelection />
-    </>
-  );
+  
 
   return (
     <BrowserRouter>
       <Toaster position="top-center" richColors />
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<DropZone />} />
+        <Route path="/input" element={<InputSelection />} />
       </Routes>
     </BrowserRouter>
   );

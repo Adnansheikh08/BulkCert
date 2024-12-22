@@ -31,7 +31,7 @@ const ManualNameInput = () => {
       </button>
       <ul>
         {manualNames.map((name, index) => (
-          <li key={index}>{name}</li>
+       <li key={index}>{name}</li>
         ))}
       </ul>
     </div>

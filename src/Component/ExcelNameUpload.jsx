@@ -18,6 +18,7 @@ const ExcelNameUpload = () => {
         // Assume column "Name" contains the names
         const names = rows.map((row) => row.Name);
         setExcelNames(names);
+        console.log(names)
       };
       reader.readAsArrayBuffer(file);
     }
@@ -35,7 +36,7 @@ const ExcelNameUpload = () => {
       
       <ul>
         {excelNames.map((name, index) => (
-          <li key={index}>{name}</li>
+         (<li key={index}>{name}</li>)
         ))}
       </ul>
     </div>
